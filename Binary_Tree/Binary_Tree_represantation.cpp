@@ -22,6 +22,6 @@ int main(){
   root->left->right = new Node(3);
   root->right->left = new Node(5);
   root->right->right = new Node(7);
-
+  cout<<root->data<<"\n";
 return 0;
 }
