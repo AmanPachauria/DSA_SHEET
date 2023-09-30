@@ -20,11 +20,8 @@ public:
               int dis = it1.first;
               int node = it1.second.first;
               int stop = it1.second.second;
-              
-              cout<<dis<<" "<<node<<" "<<stop<<"\n";
-              if(node==dst && stop-1<=k){
-                    ans = min(ans, dis);
-              }
+
+              if(stop>k) continue;
 
               for( auto it : adj[node]){
                   int nodeDis = it.second;
@@ -37,7 +34,7 @@ public:
               }
           }
           
-          if(ans==INT_MAX) return -1;
-          return ans;
+          if(dist[dst]==1e9) return -1;
+          return dist[dst];
     }
 };
