@@ -11,7 +11,8 @@ void unionBySize(int u, int v, vector<int> &size, vector<int> &parent){
 	 
 	 int p_u = ParentU(u, parent);
 	 int p_v = ParentU(v, parent);
-
+     
+	 if(p_u==p_v) return;
 	 if(size[p_u]>size[p_v]){
 		 parent[p_v] = p_u;
 		 size[p_u] += size[p_v];
@@ -87,6 +88,7 @@ class Disjoint{
 		 int p_u = ParentU(u);
 		 int p_v = ParentU(v);
          
+		 if(p_u==p_v) return;
 		 if(size[p_u]>size[p_v]){
 			 parent[p_v] = p_u;
 			 size[p_u] += p_v;
