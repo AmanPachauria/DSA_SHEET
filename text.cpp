@@ -1,36 +1,58 @@
-function quicksort(arr, low, high) {
-  if (low < high) {
-    const partitionIndex = partition(arr, low, high);
-    quicksort(arr, low, partitionIndex - 1);
-    quicksort(arr, partitionIndex + 1, high);
-  }
+#include <bits/stdc++.h> 
+
+int Fun(ind, maxWeight, wt, value, dp ){
+
+	if(ind == 0 ){
+		if( wt[ind] <= maxWeight ) return value[0];
+		else return 0;
+	}
+
+	if( dp[ind][maxWeight] != -1 ) return dp[ind][maxWeight];
+
+	int nottake = Fun( ind-1, maxWeight, wt, value, dp );
+	int take = 0;
+	if( wt[ind] <= maxWeight ){
+		take = value[ind] + Fun(ind-1, maxWeight - wt[ind] , wt, value, dp );
+	}
+
+	return dp[ind][maxWeight] = max( nottake, take );
 }
 
-function partition(arr, low, high) {
-  const pivot = arr[low];
-  let i = low;
-  let j = high;
+int knapsack(vector<int> wt, vector<int> value, int n, int maxWeight) 
+{   
+	vector<vector<int>> dp(n, vector<int> (maxWeight+1, -1));
 
-  while (i < j) {
-    while (arr[i] <= pivot && i <= high) {
-      i++;
-    }
-    while (arr[j] > pivot && j >= low) {
-      j--;
-    }
-    if (i < j) {
-      // Swap arr[i] and arr[j]
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-  }
-
-  // Swap arr[low] and arr[j]
-  [arr[low], arr[j]] = [arr[j], arr[low]];
-
-  return j;
+	return Fun( n-1, maxWeight, wt, value, dp );
+	
 }
 
-// Example usage:
-const arr = [5, 3, 8, 4, 2, 7, 1];
-quicksort(arr, 0, arr.length - 1);
-console.log(arr); // Sorted array
+
+// Solution 2 
+
+
+#include <bits/stdc++.h> 
+
+int knapsack(vector<int> wt, vector<int> value, int n, int maxWeight) 
+{   
+	vector<vector<int>> dp(n, vector<int> (maxWeight+1, 0));
+
+	for( int i = wt[0]; i <= maxWeight; i++ ){
+		dp[0][i] = value[0];
+	}
+	
+
+	for( int ind = 1; ind < n; ind++ ){
+       for( int target = 1; target <= maxWeight; target++ ){
+		    
+			int nottake = dp[ind-1][target];
+			int take = 0;
+			if( wt[ind] <= target ){
+				take = value[ind] + dp[ind-1][target-wt[ind]];
+			}
+
+			dp[ind][target] = max( nottake, take );
+	   }
+	}
+
+	return dp[n-1][maxWeight];
+}
