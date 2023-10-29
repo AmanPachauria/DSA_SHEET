@@ -56,3 +56,7 @@ int unboundedKnapsack(int n, int w, vector<int> &profit, vector<int> &weight){
 
     return dp[n-1][w];
 }
+
+
+// Solutin 2
+
