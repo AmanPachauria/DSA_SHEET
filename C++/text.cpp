@@ -56,3 +56,19 @@ int knapsack(vector<int> wt, vector<int> value, int n, int maxWeight)
 
 	return dp[n-1][maxWeight];
 }
+
+
+
+
+
+
+
+
+class student{
+	int age;      // these are Data Variables
+	string address;
+
+	void display(){ // This is Data Method or Member Function
+		cout <<  age << " " << address << endl;
+	}
+}
